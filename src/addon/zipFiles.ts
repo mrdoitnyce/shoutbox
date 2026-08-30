@@ -7,8 +7,8 @@
 export const ADDON_META = {
   id: "SC/ChatboxPRO",
   title: "[SC] Chatbox PRO",
-  version: "1.0.0",
-  versionId: 1000070,
+  version: "1.0.1",
+  versionId: 1000071,
   dev: "Superchunes",
   devUrl: "https://superchunes.com",
   xfMin: "2.3.0",
@@ -22,8 +22,8 @@ export const ADDON_FILES: Record<string, string> = {
   [P + "addon.json"]: `{
     "legacy_addon_id": "",
     "title": "[SC] Chatbox PRO",
-    "version_string": "1.0.0",
-    "version_id": 1000070,
+    "version_string": "1.0.1",
+    "version_id": 1000071,
     "dev": "Superchunes",
     "dev_url": "https://superchunes.com",
     "faq_url": "https://superchunes.com/docs/sc-chatbox-pro/faq",
@@ -158,9 +158,12 @@ class Setup extends AbstractSetup
 
     /* ------------------------------ upgrade ------------------------------ */
 
-    public function upgrade1000070Step1(): void
+    public function upgrade1000071Step1(): void
     {
-        // Fresh release — nothing to migrate yet. Placeholder for 1.1.x.
+        // 1.0.0 -> 1.0.1: template syntax hotfix only.
+        // No schema changes required — templates are re-imported by the
+        // data importer during the upgrade, which also drains any actions
+        // that were left pending by a failed 1.0.0 install.
     }
 
     /* ----------------------------- uninstall ----------------------------- */
@@ -208,7 +211,7 @@ class App
     /**
      * Append the floating chatbox launcher before </body> when enabled.
      */
-    public static function containerParams(\\XF\\Pub\\App $app, array &$params): void
+    public static function containerParams(\\XF\\Pub\\App $app, array &$params = []): void
     {
         if (!\\XF::options()->scChatboxMaster)
         {
@@ -1217,7 +1220,7 @@ class Chatbox extends \\XF\\Widget\\AbstractWidget
   /* ------------------------------------------------ _data/templates.xml (sc_chatbox_main) */
   [P + "_data/templates.xml"]: `<?xml version="1.0" encoding="utf-8"?>
 <templates>
-  <template title="sc_chatbox_main" type="public" version_id="1000070" addon_id="SC/ChatboxPRO"><![CDATA[<xf:title>{xenforo:phrase sc_chatbox_title}</xf:title>
+  <template title="sc_chatbox_main" type="public" version_id="1000071" addon_id="SC/ChatboxPRO"><![CDATA[<xf:title>{{ phrase('sc_chatbox_title') }}</xf:title>
 
 <style>
 .scChat { background: var(--xf-palette-neutral-2); border: 1px solid var(--xf-palette-neutral-3); border-radius: 8px; overflow: hidden; }
@@ -1260,13 +1263,13 @@ class Chatbox extends \\XF\\Widget\\AbstractWidget
 
     <xf:if is="$canPost">
         <form class="scChat-composer js-scChat-composer" data-xf-init="submit" action="{{ link('chatbox/send') }}" method="post">
-            <input type="text" name="message" maxlength="500" placeholder="{xenforo:phrase sc_chatbox_placeholder}" autocomplete="off" />
+            <input type="text" name="message" maxlength="500" placeholder="{{ phrase('sc_chatbox_placeholder') }}" autocomplete="off" />
             <input type="hidden" name="room_id" value="{$room.room_id}" />
             <xf:csrf />
-            <button type="submit" class="button button--primary">{xenforo:phrase sc_chatbox_send}</button>
+            <button type="submit" class="button button--primary">{{ phrase('sc_chatbox_send') }}</button>
         </form>
     <xf:else />
-        <div class="block-row">{xenforo:phrase sc_chatbox_login_required}</div>
+        <div class="block-row">{{ phrase('sc_chatbox_login_required') }}</div>
     </xf:if>
 </div>
 
@@ -1404,6 +1407,12 @@ class Chatbox extends \\XF\\Widget\\AbstractWidget
   /* ------------------------------------------------ CHANGELOG.md */
   "CHANGELOG.md": `# [SC] Chatbox PRO — changelog
 
+## 1.0.1 — hotfix
+- Fixed XF2 template syntax in sc_chatbox_main ({xenforo:phrase ...} -> {{ phrase('...') }}).
+  In 1.0.0 this could fail the final template rebuild job and leave the add-on
+  showing "One or more add-ons currently have actions pending" in the ACP.
+- Hardened the app_pub_setup listener signature (defensive default parameter).
+
 ## 1.0.0 — initial release
 - Room-based chat with per-room guest & staff visibility
 - Real-time client (2.5s poll, configurable, XF push-notification aware)
@@ -1420,10 +1429,19 @@ class Chatbox extends \\XF\\Widget\\AbstractWidget
 /* ------------------------------------------------------------------
    README lives at the ZIP root
 ------------------------------------------------------------------- */
-export const README = `# [SC] Chatbox PRO 1.0.0
+export const README = `# [SC] Chatbox PRO 1.0.1
 
 A real-time, room-based chatbox add-on for XenForo 2.3.0 – 2.3.12.
 Developed by Superchunes — https://superchunes.com
+
+## Stuck on a 1.0.0 install? ("actions pending" warning)
+v1.0.0 could stall the final rebuild job and leave the add-on list showing
+"One or more add-ons currently have actions pending...". Your data is safe.
+Fix: upload THIS archive via Add-ons -> Install/upgrade from archive — the
+upgrade drains the pending actions and re-imports the fixed templates.
+If the row refuses to move, uninstall, or (after backing up your DB) run:
+UPDATE xf_addon SET pending_actions = '' WHERE addon_id = 'SC/ChatboxPRO';
+then install this archive again.
 
 ## Requirements
 - XenForo 2.3.0 or newer (tested through 2.3.12)

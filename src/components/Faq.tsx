@@ -3,6 +3,10 @@ import { Reveal } from "../lib/hooks";
 
 const FAQS = [
   {
+    q: "Help! The add-on list says \u201cOne or more add-ons currently have actions pending\u2026\u201d",
+    a: "That means a previous install attempt was interrupted or errored and left a job in XF's queue — it's recoverable and your forum data is untouched. Fix: (1) download the v1.0.1 zip from this page, (2) go to Admin CP \u2192 Add-ons \u2192 Install/upgrade from archive and upload it \u2014 XenForo will resume the pending actions and finish cleanly, (3) give the job queue a minute (it runs on cron) and refresh. If it's still stuck, uninstall the add-on and install v1.0.1 fresh. Last resort, after backing up your DB: UPDATE xf_addon SET pending_actions = '' WHERE addon_id = 'SC/ChatboxPRO'; then install again.",
+  },
+  {
     q: "Which XenForo versions are supported?",
     a: "XenForo 2.3.0 through 2.3.12 — the add-on declares require XF ≥ 2.3.0 in addon.json and every release is regression-tested on the latest 2.3.x patch. XenForo 2.2 is not supported.",
   },

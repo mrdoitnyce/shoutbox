@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ADDON_FILES, README } from "../addon/zipFiles";
+import { ADDON_FILES, ADDON_META, README } from "../addon/zipFiles";
 import { Reveal } from "../lib/hooks";
 
 interface TreeNode {
@@ -10,7 +10,7 @@ interface TreeNode {
 }
 
 function buildTree(): TreeNode {
-  const root: TreeNode = { name: "SC_ChatboxPRO_1.0.0.zip", path: "", children: new Map() };
+  const root: TreeNode = { name: `SC_ChatboxPRO_${ADDON_META.version}.zip`, path: "", children: new Map() };
   const entries: [string, string][] = [["README.md", README], ...Object.entries(ADDON_FILES)];
 
   for (const [path, content] of entries) {

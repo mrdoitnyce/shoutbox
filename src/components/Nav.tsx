@@ -48,7 +48,7 @@ export default function Nav() {
             [SC] Chatbox <span className="text-signal">PRO</span>
           </span>
           <span className="hidden sm:inline-block font-mono text-[10px] text-pulse border border-pulse/30 bg-pulse/[0.07] rounded px-1.5 py-0.5 tracking-wider">
-            v1.0.0
+            v1.0.1
           </span>
         </a>
 

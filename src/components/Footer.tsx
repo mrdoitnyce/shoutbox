@@ -104,7 +104,7 @@ export default function Footer() {
 
         <div className="mt-12 pt-6 border-t border-line flex flex-col sm:flex-row items-center gap-3 justify-between">
           <p className="font-mono text-[11px] text-faint">
-            © 2026 Superchunes · [SC] Chatbox PRO 1.0.0 · for XenForo 2.3.0 – 2.3.12
+            © 2026 Superchunes · [SC] Chatbox PRO 1.0.1 · for XenForo 2.3.0 – 2.3.12
           </p>
           <p className="font-mono text-[11px] text-faint">
             XenForo is a trademark of XenForo Ltd. This page packages the add-on zip entirely in your browser.

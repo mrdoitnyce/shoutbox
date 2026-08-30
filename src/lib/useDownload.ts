@@ -22,7 +22,7 @@ export function useDownload() {
       ? "Packaging…"
       : state === "done" && stats
         ? `${stats.name} · ${formatBytes(stats.bytes)} — again?`
-        : "Download v1.0.0 (.zip)";
+        : "Download v1.0.1 (.zip)";
 
   return { download, state, label, stats };
 }

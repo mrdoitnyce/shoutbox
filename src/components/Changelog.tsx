@@ -33,12 +33,32 @@ export default function Changelog() {
           <Reveal delay={80}>
             <div className="rounded-xl border border-line bg-panel/60 p-7 h-full">
               <div className="flex items-center gap-3">
-                <span className="font-display font-bold text-[26px] text-ink">v1.0.0</span>
+                <span className="font-display font-bold text-[26px] text-ink">v1.0.1</span>
                 <span className="font-mono text-[10px] px-2 py-1 rounded-full bg-pulse/10 border border-pulse/30 text-pulse2 uppercase tracking-wider">
                   current release
                 </span>
               </div>
               <ul className="mt-5 space-y-2.5">
+                {[
+                  "Hotfix: corrected XF2 template syntax in sc_chatbox_main ({{ phrase() }}) — v1.0.0 could stall the final rebuild job and leave the add-on with \u201cactions pending\u201d",
+                  "Hardened the app_pub_setup listener signature so it can never misfire",
+                ].map((r, i) => (
+                  <li key={i} className="flex gap-3 text-[13.5px] text-dim leading-relaxed">
+                    <svg width="13" height="13" viewBox="0 0 16 16" fill="none" stroke="#35D8B7" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="mt-[4px] shrink-0">
+                      <path d="M8 2v12M2 8h12" />
+                    </svg>
+                    {r}
+                  </li>
+                ))}
+              </ul>
+
+              <div className="flex items-center gap-3 mt-7 pt-5 border-t border-line">
+                <span className="font-display font-bold text-[20px] text-dim">v1.0.0</span>
+                <span className="font-mono text-[10px] px-2 py-1 rounded-full bg-panel2 border border-line2 text-faint uppercase tracking-wider">
+                  initial release
+                </span>
+              </div>
+              <ul className="mt-4 space-y-2.5">
                 {RELEASED.map((r, i) => (
                   <Reveal key={i} delay={i * 60}>
                     <li className="flex gap-3 text-[13.5px] text-dim leading-relaxed">
