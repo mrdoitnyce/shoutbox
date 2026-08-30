@@ -1,0 +1,2 @@
+# Shoutbox
+addon!
