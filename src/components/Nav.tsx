@@ -78,10 +78,11 @@ export default function Nav() {
           </a>
           <button
             onClick={download}
+            title="Builds SC_ChatboxPRO_1.0.0.zip right here and saves it to your Downloads folder"
             className={`flex items-center gap-2 h-9 px-4 rounded-lg font-semibold text-[13px] transition-all active:scale-[0.97] ${
               state === "done"
                 ? "bg-pulse/15 border border-pulse/40 text-pulse2"
-                : "bg-signal text-abyss hover:bg-signal2"
+                : "cta-beacon bg-signal text-abyss hover:bg-signal2"
             }`}
           >
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">

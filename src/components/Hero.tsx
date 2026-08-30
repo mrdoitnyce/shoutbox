@@ -64,10 +64,11 @@ export default function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-3.5">
               <button
                 onClick={download}
+                title="Click to build & save SC_ChatboxPRO_1.0.0.zip"
                 className={`group flex items-center gap-2.5 h-12 px-6 rounded-lg font-semibold text-[14.5px] transition-all active:scale-[0.97] ${
                   state === "done"
                     ? "bg-pulse/15 border border-pulse/40 text-pulse2"
-                    : "bg-signal text-abyss hover:bg-signal2 shadow-[0_14px_36px_-12px_rgba(255,120,71,0.55)]"
+                    : "cta-beacon bg-signal text-abyss hover:bg-signal2 shadow-[0_14px_36px_-12px_rgba(255,120,71,0.55)]"
                 }`}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" className="transition-transform group-hover:translate-y-0.5">
@@ -85,6 +86,14 @@ export default function Hero() {
                   <path d="M12 5v14m0 0 6-6m-6 6-6-6" />
                 </svg>
               </a>
+            </div>
+
+            {/* start-here hint for first-timers */}
+            <div className="mt-3.5 flex items-center gap-2 font-mono text-[11.5px] text-gold">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="nudge-left" aria-hidden="true">
+                <path d="M19 12H5m0 0 6 6m-6-6 6-6" />
+              </svg>
+              start here — one click builds the zip right in your browser, no signup
             </div>
 
             <div ref={ref} className="mt-10 flex items-center gap-8 sm:gap-12 border-t border-line pt-6">
